@@ -18,7 +18,7 @@ local function handleAction(actionName, inputState, inputObject)
 	if inputState == Enum.UserInputState.Begin then
 		UserInput.MouseBehavior = Enum.MouseBehavior.LockCurrentPosition		
 	elseif inputState == Enum.UserInputState.End then
-		UserInput.MouseBehavior = Enum.MouseBehavior.LockCurrentPosition		
+		UserInput.MouseBehavior = Enum.MouseBehavior.Default		
 	end
 end
 
