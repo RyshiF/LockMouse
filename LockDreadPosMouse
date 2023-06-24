@@ -1,0 +1,25 @@
+local UserInput = game:GetService("UserInputService")
+local camera = workspace.CurrentCamera
+
+game:GetService("RunService").RenderStepped:Connect(function()
+	camera.CameraType = Enum.CameraType.Scriptable
+
+	local mouseDelta = UserInput:GetMouseDelta()
+	if mouseDelta ~= Vector2.new(0, 0) then
+		local pastAngleX, pastAngleY, pastAngleZ = camera.CFrame:ToOrientation()
+		local angle = CFrame.fromOrientation(pastAngleX + math.rad(mouseDelta.Y), pastAngleY + math.rad(mouseDelta.X), math.rad(0))
+		camera.CFrame = CFrame.new(workspace.CurrentCamera.CFrame.Position) * angle
+	end
+end)
+
+local ContextActionService = game:GetService("ContextActionService")
+
+local function handleAction(actionName, inputState, inputObject)
+	if inputState == Enum.UserInputState.Begin then
+		UserInput.MouseBehavior = Enum.MouseBehavior.LockCurrentPosition		
+	elseif inputState == Enum.UserInputState.End then
+		UserInput.MouseBehavior = Enum.MouseBehavior.LockCurrentPosition		
+	end
+end
+
+ContextActionService:BindAction("LockCamera",handleAction,false,Enum.UserInputType.MouseButton2)
